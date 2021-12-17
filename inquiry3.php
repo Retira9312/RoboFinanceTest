@@ -14,17 +14,17 @@ include('table.php');
 </head>
 
 <body>
-
+<h1>Последний найм</h1>
 <div class="container mtb-3">
 <div class="table-responsive">
 
 <?php
 //запрос по отбору последних принятых сотрудников в каждый отдел организации, с выводом даты приемы и наименования отдела
-$inquiry3=$pdo->query ("SELECT   p.description, concat( u.last_name,' ',u.first_name) as fl, u.created_at FROM (SELECT up.department_id, d.description, max(up.user_id) as uid FROM user_position up left join department d on up.department_id=d.id group by up.department_id) p join user u on p.uid = u.id");
+$inquiry=$pdo->query ("SELECT   p.description, concat( u.last_name,' ',u.first_name) as fl, u.created_at FROM (SELECT up.department_id, d.description, max(up.user_id) as uid FROM user_position up left join department d on up.department_id=d.id group by up.department_id) p join user u on p.uid = u.id");
 
 //создаем переменную с помощью класса Table и помещаем в нее результат запроса, преобразованный в таблицу
-$table3 = new Table;
-echo $table3->getTable($inquiry3, 'Фамилия Имя,Дата найма,Отдел', 'fl,created_at,description');
+$table = new Table;
+echo $table->getTable($inquiry, 'Фамилия Имя,Дата найма,Отдел', 'fl,created_at,description');
 ?>
 
 </div>
